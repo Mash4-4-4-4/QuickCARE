@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuickCARE</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=DM+Sans:wght@300;400;500&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+
+<link href="style.css" rel="stylesheet"/></head>
+<body>
+<!-- ══════════════════════════════════════
+     AUTH ROOT — shown until user logs in
+══════════════════════════════════════ -->
+<div id="auth-root">
+<!-- Left decorative panel -->
+<div class="auth-left">
+<div class="auth-left-bg"></div>
+<div class="auth-grid"></div>
+<div class="auth-left-content">
+<div class="auth-logo">
+<div class="auth-logo-dot"></div>
+        QuickCARE
+      </div>
+<div class="auth-tagline">
+<div class="auth-tagline-big">Healthcare,<br/><span>simplified.</span></div>
+<div class="auth-tagline-sub">One platform connecting patients to hospitals — book appointments, manage health records, and get AI-powered guidance.</div>
+<div class="auth-features">
+<div class="auth-feature"><div class="auth-feature-dot"></div>Book and manage appointments in seconds</div>
+<div class="auth-feature"><div class="auth-feature-dot"></div>AI health assistant available 24/7</div>
+<div class="auth-feature"><div class="auth-feature-dot"></div>Secure health records, always accessible</div>
+<div class="auth-feature"><div class="auth-feature-dot"></div>Real-time hospital admin dashboards</div>
+</div>
+</div>
+</div>
+<!-- Floating stat cards -->
+<div class="auth-stat-cards">
+<div class="auth-stat-card">
+<div class="auth-stat-card-val">2,841</div>
+<div class="auth-stat-card-lbl">Active patients</div>
+</div>
+<div class="auth-stat-card">
+<div class="auth-stat-card-val">148</div>
+<div class="auth-stat-card-lbl">Appointments today</div>
+</div>
+<div class="auth-stat-card">
+<div class="auth-stat-card-val">4.9★</div>
+<div class="auth-stat-card-lbl">Avg doctor rating</div>
+</div>
+</div>
+</div>
+<!-- Right auth panel -->
+<div class="auth-right">
+<div class="auth-box">
+<!-- SCREEN 1: Role picker -->
+<div class="auth-screen active" id="screen-role">
+<div class="auth-screen-title">Welcome back</div>
+<div class="auth-screen-sub">Choose how you want to sign in today.</div>
+<div class="role-cards">
+<div class="role-card role-card-patient" onclick="selectRole('patient', this)">
+<div class="role-card-inner">
+<div class="role-icon role-icon-patient">🏥</div>
+<div>
+<div class="role-title">Patient / User</div>
+<div class="role-desc">Book appointments, view health records, and chat with our AI assistant.</div>
+</div>
+<div class="role-check"><div class="role-check-inner"></div></div>
+</div>
+</div>
+<div class="role-card role-card-admin" onclick="selectRole('admin', this)">
+<div class="role-card-inner">
+<div class="role-icon role-icon-admin">🏨</div>
+<div>
+<div class="role-title">Hospital Admin</div>
+<div class="role-desc">Manage your hospital's patients, doctors, rooms, staff and analytics.</div>
+</div>
+<div class="role-check"><div class="role-check-inner"></div></div>
+</div>
+</div>
+</div>
+<button class="auth-btn auth-btn-patient" id="role-continue-btn" onclick="goToLogin()" style="opacity:0.45;pointer-events:none">
+<span class="btn-text">Continue</span>
+</button>
+<div class="auth-switch" style="margin-top:14px;font-size:0.8rem">
+          New to QuickCARE? <a onclick="goToRegister()">Create an account</a>
+</div>
+</div>
+<!-- SCREEN 2: Patient Login -->
+<div class="auth-screen" id="screen-patient-login">
+<button class="auth-back" onclick="goBack('screen-role')">← Back</button>
+<span class="auth-role-badge auth-role-badge-patient">🏥 Patient Portal</span>
+<div class="auth-screen-title">Sign in</div>
+<div class="auth-screen-sub">Access your health dashboard at Apollo Hospital.</div>
+<div class="auth-error" id="patient-login-error">Invalid email or password. Try <strong><a class="__cf_email__" data-cfemail="3141504558545f4571404458525a525043541f525e5c" href="/cdn-cgi/l/email-protection">[email protected]</a> / patient123</strong></div>
+<div class="auth-field">
+<label class="auth-label">Email address</label>
+<input class="auth-input" id="patient-email" placeholder="aryan@email.com" type="email" value="patient@quickcare.com"/>
+</div>
+<div class="auth-field">
+<label class="auth-label">Password</label>
+<input class="auth-input" id="patient-password" placeholder="••••••••" type="password" value="patient123"/>
+</div>
+<div style="text-align:right;margin-bottom:20px">
+<a style="font-size:0.8rem;color:#1a6b4a;cursor:pointer;font-weight:500">Forgot password?</a>
+</div>
+<button class="auth-btn auth-btn-patient" id="patient-login-btn" onclick="doLogin('patient')">
+<div class="btn-spinner"></div>
+<span class="btn-text">Sign in to Patient Portal</span>
+</button>
+<div class="demo-hint">
+<strong>Demo credentials:</strong><br/>
+          Email: <a class="__cf_email__" data-cfemail="6a1a0b1e030f041e2a1b1f030901090b180f44090507" href="/cdn-cgi/l/email-protection">[email protected]</a>  ·  Password: patient123
+        </div>
+<div class="auth-switch">Don't have an account? <a onclick="goToRegister('patient')">Register as patient</a></div>
+</div>
+<!-- SCREEN 3: Admin Login -->
+<div class="auth-screen" id="screen-admin-login">
+<button class="auth-back" onclick="goBack('screen-role')">← Back</button>
+<span class="auth-role-badge auth-role-badge-admin">🏨 Hospital Admin</span>
+<div class="auth-screen-title">Admin sign in</div>
+<div class="auth-screen-sub">Access your hospital's management dashboard.</div>
+<div class="auth-error" id="admin-login-error">Invalid credentials. Try <strong><a class="__cf_email__" data-cfemail="0362676e6a6d4362736c6f6f6c6b6c70736a77626f2d606c6e" href="/cdn-cgi/l/email-protection">[email protected]</a> / admin123</strong></div>
+<div class="auth-field">
+<label class="auth-label">Hospital admin email</label>
+<input class="auth-input auth-input-admin" id="admin-email" placeholder="admin@hospital.com" type="email" value="admin@apollohospital.com"/>
+</div>
+<div class="auth-field">
+<label class="auth-label">Password</label>
+<input class="auth-input auth-input-admin" id="admin-password" placeholder="••••••••" type="password" value="admin123"/>
+</div>
+<div style="text-align:right;margin-bottom:20px">
+<a style="font-size:0.8rem;color:#1d5fa8;cursor:pointer;font-weight:500">Forgot password?</a>
+</div>
+<button class="auth-btn auth-btn-admin" id="admin-login-btn" onclick="doLogin('admin')">
+<div class="btn-spinner"></div>
+<span class="btn-text">Sign in to Admin Panel</span>
+</button>
+<div class="demo-hint">
+<strong>Demo credentials:</strong><br/>
+          Email: <a class="__cf_email__" data-cfemail="a5c4c1c8cccbe5c4d5cac9c9cacdcad6d5ccd1c4c98bc6cac8" href="/cdn-cgi/l/email-protection">[email protected]</a>  ·  Password: admin123
+        </div>
+<div class="auth-switch auth-switch-admin">Not your hospital? <a onclick="showToast('Contact your hospital IT administrator.')">Request access</a></div>
+</div>
+<!-- SCREEN 4: Patient Register -->
+<div class="auth-screen" id="screen-patient-register">
+<button class="auth-back" onclick="goBack('screen-role')">← Back</button>
+<span class="auth-role-badge auth-role-badge-patient">🏥 New Patient</span>
+<div class="auth-screen-title">Create account</div>
+<div class="auth-screen-sub">Join QuickCARE and connect to your hospital.</div>
+<div class="auth-input-row auth-field">
+<div>
+<label class="auth-label">First name</label>
+<input class="auth-input" placeholder="Aryan" type="text"/>
+</div>
+<div>
+<label class="auth-label">Last name</label>
+<input class="auth-input" placeholder="Kumar" type="text"/>
+</div>
+</div>
+<div class="auth-field">
+<label class="auth-label">Email address</label>
+<input class="auth-input" placeholder="aryan@email.com" type="email"/>
+</div>
+<div class="auth-field">
+<label class="auth-label">Phone number</label>
+<input class="auth-input" placeholder="+91 98765 43210" type="tel"/>
+</div>
+<div class="auth-field">
+<label class="auth-label">Select your hospital</label>
+<select class="auth-input" style="appearance:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 fill=%22none%22%3E%3Cpath d=%22M1 1l5 5 5-5%22 stroke=%22%239a9690%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 14px center;padding-right:36px">
+<option>Apollo Hospital, Mumbai</option>
+<option>Max Hospital, Delhi</option>
+<option>Fortis Hospital, Bangalore</option>
+<option>AIIMS, New Delhi</option>
+</select>
+</div>
+<div class="auth-field">
+<label class="auth-label">Password</label>
+<input class="auth-input" placeholder="Min. 8 characters" type="password"/>
+</div>
+<button class="auth-btn auth-btn-patient" onclick="doRegister('patient')">
+<div class="btn-spinner"></div>
+<span class="btn-text">Create Patient Account</span>
+</button>
+<div class="auth-switch" style="margin-top:14px">Already have an account? <a onclick="goToLogin('patient')">Sign in</a></div>
+</div>
+</div>
+</div>
+</div>
+<!-- ══════════════════════════════════════
+     APP ROOT — shown after login
+══════════════════════════════════════ -->
+<div id="app-root">
+<!-- TOPBAR -->
+<div class="topbar">
+<div class="logo">
+<div class="logo-dot"></div>
+    QuickCARE
+  </div>
+<div id="topbar-role-tag" style="margin-left:16px"></div>
+<div class="topbar-right">
+<div style="text-align:right;margin-right:4px">
+<div id="topbar-user-name"></div>
+<div class="page-title"></div></div>
+<div class="notif-btn" onclick="showToast('You have 3 new notifications')">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+<div class="notif-dot"></div>
+</div>
+<div class="avatar" id="topbar-avatar">AK</div>
+<button class="logout-btn" onclick="logout()">Sign out</button>
+</div>
+</div>
+<!-- ═══════════════ PATIENT VIEW ═══════════════ -->
+<div class="view active" id="view-patient">
+<div class="patient-layout">
+<!-- Sidebar -->
+<div class="patient-sidebar">
+<div class="nav-section">Overview</div>
+<button class="nav-item active" onclick="showPatientPanel('dashboard', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect></svg>
+        Dashboard
+      </button>
+<div class="nav-section">Appointments</div>
+<button class="nav-item" onclick="showPatientPanel('book', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Book Appointment
+      </button>
+<button class="nav-item" onclick="showPatientPanel('appointments', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        My Appointments
+      </button>
+<div class="nav-section">Health</div>
+<button class="nav-item" onclick="showPatientPanel('doctors', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Find Doctors
+      </button>
+<button class="nav-item" onclick="showPatientPanel('records', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Health Records
+      </button>
+<button class="nav-item" onclick="showPatientPanel('ai', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        AI Assistant
+      </button>
+<button class="nav-item nav-item-waiting" id="nav-waiting-room" onclick="showPatientPanel('waiting', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Waiting Room
+        <span class="waiting-pulse-dot"></span>
+</button>
+<div class="hospital-badge">
+<div class="hospital-badge-name">Apollo Hospital</div>
+<div class="hospital-badge-sub">Linked hospital · Mumbai</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="patient-main">
+<!-- DASHBOARD -->
+<div class="panel active" id="panel-dashboard">
+<div class="page-header">
+<div class="page-title">Good morning, Aryan 👋</div>
+<div class="page-sub">Here's what's happening with your health today.</div>
+</div>
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-label">Upcoming</div>
+<div class="stat-value stat-accent">3</div>
+<div class="stat-meta">appointments this week</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Completed</div>
+<div class="stat-value">12</div>
+<div class="stat-meta">visits all time</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Prescriptions</div>
+<div class="stat-value">4</div>
+<div class="stat-meta">active medications</div>
+</div>
+<div class="stat-card">
+<div class="stat-label">Next Visit</div>
+<div class="stat-value stat-accent" style="font-size:1.4rem">Mar 28</div>
+<div class="stat-meta">Dr. Sharma · Cardiology</div>
+</div>
+</div>
+<div class="cards-row">
+<div class="card">
+<div class="card-title">
+              Upcoming Appointments
+              <span class="card-link" onclick="showPatientPanel('appointments', document.querySelector('.nav-item:nth-child(5)'))">View all →</span>
+</div>
+<div class="appt-list">
+<div class="appt-item">
+<div class="appt-avatar">DS</div>
+<div>
+<div class="appt-name">Dr. Deepak Sharma</div>
+<div class="appt-sub">Cardiology · Room 204</div>
+</div>
+<div class="appt-time">
+<div class="appt-date">Mar 28</div>
+<div class="appt-hour">10:30 AM</div>
+</div>
+<span class="badge badge-green">Confirmed</span>
+</div>
+<div class="appt-item">
+<div class="appt-avatar" style="background:#1d5fa8">PR</div>
+<div>
+<div class="appt-name">Dr. Priya Rao</div>
+<div class="appt-sub">Dermatology · Room 110</div>
+</div>
+<div class="appt-time">
+<div class="appt-date">Apr 2</div>
+<div class="appt-hour">2:00 PM</div>
+</div>
+<span class="badge badge-amber">Pending</span>
+</div>
+<div class="appt-item">
+<div class="appt-avatar" style="background:#6d28d9">MK</div>
+<div>
+<div class="appt-name">Dr. Meera Krishnan</div>
+<div class="appt-sub">Neurology · Room 318</div>
+</div>
+<div class="appt-time">
+<div class="appt-date">Apr 8</div>
+<div class="appt-hour">11:00 AM</div>
+</div>
+<span class="badge badge-blue">Scheduled</span>
+</div>
+</div>
+</div>
+<div class="card ai-card">
+<div class="card-title">AI Health Assistant</div>
+<div class="ai-messages" id="dash-chat">
+<div class="ai-msg">
+<div class="ai-avatar-sm">Q</div>
+<div class="ai-bubble">Hello Aryan! I'm your QuickCARE AI. I can help you understand symptoms, check drug interactions, or prepare questions for your doctor. How can I help?</div>
+</div>
+</div>
+<div class="ai-input-row">
+<input class="ai-input" id="dash-input" onkeydown="if(event.key==='Enter')sendChat('dash')" placeholder="Ask about symptoms, medications..."/>
+<button class="ai-send" onclick="sendChat('dash')">Send</button>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Quick Actions</div>
+<div class="action-grid">
+<button class="action-btn" onclick="showPatientPanel('book', null)">
+<div class="action-icon">📅</div>
+<div class="action-label">Book Appointment</div>
+</button>
+<button class="action-btn" onclick="showToast('Lab results downloaded!')">
+<div class="action-icon">🧪</div>
+<div class="action-label">Download Lab Results</div>
+</button>
+<button class="action-btn" onclick="showToast('Prescription sent to pharmacy!')">
+<div class="action-icon">💊</div>
+<div class="action-label">Refill Prescription</div>
+</button>
+<button class="action-btn" onclick="showToast('Video call scheduled!')">
+<div class="action-icon">📹</div>
+<div class="action-label">Teleconsultation</div>
+</button>
+<button class="action-btn" onclick="showPatientPanel('records', null)">
+<div class="action-icon">📋</div>
+<div class="action-label">View Health Records</div>
+</button>
+<button class="action-btn" onclick="showToast('Ambulance request sent!')">
+<div class="action-icon">🚑</div>
+<div class="action-label">Emergency Request</div>
+</button>
+</div>
+</div>
+</div>
+<!-- BOOK APPOINTMENT -->
+<div class="panel" id="panel-book">
+<div class="page-header">
+<div class="page-title">Book an Appointment</div>
+<div class="page-sub">Schedule a visit at Apollo Hospital with your preferred doctor.</div>
+</div>
+<!-- Live booking summary strip -->
+<div id="booking-summary-strip" style="background:linear-gradient(135deg,rgba(26,107,74,.07),rgba(26,107,74,.03));border:1.5px solid rgba(26,107,74,.2);border-radius:12px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;transition:all .3s">
+<div style="font-size:.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">📋 Your Selection</div>
+<div style="display:flex;gap:20px;flex-wrap:wrap;flex:1">
+<div><span style="font-size:.7rem;color:var(--ink3)">Doctor</span><div id="bs-doctor" style="font-weight:600;font-size:.85rem;color:var(--ink)">— not selected —</div></div>
+<div><span style="font-size:.7rem;color:var(--ink3)">Specialization</span><div id="bs-spec" style="font-weight:600;font-size:.85rem;color:var(--ink)">—</div></div>
+<div><span style="font-size:.7rem;color:var(--ink3)">Date</span><div id="bs-date" style="font-weight:600;font-size:.85rem;color:var(--ink)">—</div></div>
+<div><span style="font-size:.7rem;color:var(--ink3)">Time</span><div id="bs-time" style="font-weight:600;font-size:.85rem;color:var(--accent)">—</div></div>
+<div><span style="font-size:.7rem;color:var(--ink3)">Type</span><div id="bs-type" style="font-weight:600;font-size:.85rem;color:var(--ink)">—</div></div>
+</div>
+<div id="bs-complete-indicator" style="display:none">
+<span class="badge badge-green" style="font-size:.78rem;padding:5px 12px">✓ Ready to book</span>
+</div>
+</div>
+<div class="book-grid">
+<div>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">Select Doctor</div>
+<div class="form-group">
+<label class="form-label">Specialization</label>
+<select class="form-input form-select" id="book-spec" onchange="onSpecChange(this.value)">
+<option value="">— Choose specialization —</option>
+<option value="Cardiology">Cardiology</option>
+<option value="Dermatology">Dermatology</option>
+<option value="Neurology">Neurology</option>
+<option value="Orthopedics">Orthopedics</option>
+<option value="Pediatrics">Pediatrics</option>
+<option value="Gynecology">Gynecology</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Doctor</label>
+<select class="form-input form-select" id="book-doctor" onchange="onDoctorChange(this.value)">
+<option value="">— Select specialization first —</option>
+</select>
+</div>
+<!-- Doctor info card (shows after selection) -->
+<div id="doctor-info-card" style="display:none;background:var(--bg2);border-radius:10px;padding:14px;margin-bottom:12px">
+<div style="display:flex;align-items:center;gap:12px">
+<div id="doc-avatar-mini" style="width:44px;height:44px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;color:#fff;flex-shrink:0">DS</div>
+<div>
+<div id="doc-name-mini" style="font-weight:700;font-size:.9rem">Dr. Deepak Sharma</div>
+<div id="doc-meta-mini" style="font-size:.75rem;color:var(--ink3);margin-top:2px">Cardiology · Room 204 · 4.9★ · 15 yrs exp.</div>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="form-label">Appointment Type</label>
+<select class="form-input form-select" id="book-type" onchange="onTypeChange(this.value)">
+<option value="">— Select type —</option>
+<option value="In-person">In-person consultation</option>
+<option value="Video">Video teleconsultation</option>
+<option value="Follow-up">Follow-up visit</option>
+</select>
+</div>
+<div class="form-group">
+<label class="form-label">Reason for Visit</label>
+<input class="form-input" id="book-reason" oninput="updateBookingSummary()" placeholder="Brief description of symptoms..."/>
+</div>
+</div>
+</div>
+<div>
+<div class="card" style="margin-bottom:16px">
+<div class="card-title">Select Date</div>
+<div class="cal-header">
+<button class="cal-nav" onclick="prevMonth()">‹</button>
+<div class="cal-header-label" id="cal-month-label">March 2026</div>
+<button class="cal-nav" onclick="nextMonth()">›</button>
+</div>
+<div class="cal-weekdays">
+<div class="cal-wd">Su</div><div class="cal-wd">Mo</div><div class="cal-wd">Tu</div>
+<div class="cal-wd">We</div><div class="cal-wd">Th</div><div class="cal-wd">Fr</div><div class="cal-wd">Sa</div>
+</div>
+<div class="calendar-grid" id="cal-grid"></div>
+<div id="cal-no-date" style="display:none;font-size:.78rem;color:var(--ink3);margin-top:8px;text-align:center">⚠ Please select a doctor first</div>
+</div>
+<div class="card">
+<div class="card-title" style="display:flex;justify-content:space-between;align-items:center">
+<span>Select Time Slot</span>
+<span id="slot-date-label" style="font-size:.75rem;font-weight:400;color:var(--ink3)"></span>
+</div>
+<div class="time-slots" id="time-slots-wrap"></div>
+<div id="slot-hint" style="font-size:.75rem;color:var(--ink3);margin-top:8px;text-align:center">Select a date to see available slots</div>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:12px;margin-top:4px;align-items:center">
+<button class="btn-primary" id="book-confirm-btn" onclick="confirmAppointment()" style="opacity:.45;pointer-events:none">Confirm Appointment</button>
+<button class="btn-secondary" onclick="resetBookingForm()">↺ Clear Selection</button>
+<span id="book-validation-msg" style="font-size:.8rem;color:var(--ink3)">Fill all fields to continue</span>
+</div>
+</div>
+<!-- MY APPOINTMENTS -->
+<div class="panel" id="panel-appointments">
+<div class="page-header">
+<div class="page-title">My Appointments</div>
+<div class="page-sub">Manage, reschedule or cancel your appointments.</div>
+</div>
+<div class="search-bar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--ink3)" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35" stroke-linecap="round"></path></svg>
+<input placeholder="Search appointments, doctors..."/>
+<select class="form-select" style="border:none;background:transparent;font-family:var(--font);font-size:0.875rem;outline:none;color:var(--ink2)">
+<option>All</option><option>Upcoming</option><option>Completed</option><option>Cancelled</option>
+</select>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr>
+<th>Doctor</th><th>Specialization</th><th>Date &amp; Time</th><th>Type</th><th>Status</th><th>Actions</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><div style="font-weight:600">Dr. Deepak Sharma</div><div style="font-size:0.75rem;color:var(--ink3)">Room 204</div></td>
+<td>Cardiology</td>
+<td><div style="font-weight:500">Mar 28, 2026</div><div style="font-size:0.75rem;color:var(--ink3)">10:30 AM</div></td>
+<td><span class="badge badge-blue">In-person</span></td>
+<td><span class="badge badge-green">Confirmed</span></td>
+<td><button class="btn-secondary" onclick="showToast('Appointment cancelled')" style="padding:5px 12px;font-size:0.775rem">Cancel</button></td>
+</tr>
+<tr>
+<td><div style="font-weight:600">Dr. Priya Rao</div><div style="font-size:0.75rem;color:var(--ink3)">Room 110</div></td>
+<td>Dermatology</td>
+<td><div style="font-weight:500">Apr 2, 2026</div><div style="font-size:0.75rem;color:var(--ink3)">2:00 PM</div></td>
+<td><span class="badge badge-blue">In-person</span></td>
+<td><span class="badge badge-amber">Pending</span></td>
+<td><button class="btn-secondary" onclick="showToast('Reschedule request sent')" style="padding:5px 12px;font-size:0.775rem">Reschedule</button></td>
+</tr>
+<tr>
+<td><div style="font-weight:600">Dr. Meera Krishnan</div><div style="font-size:0.75rem;color:var(--ink3)">Room 318</div></td>
+<td>Neurology</td>
+<td><div style="font-weight:500">Apr 8, 2026</div><div style="font-size:0.75rem;color:var(--ink3)">11:00 AM</div></td>
+<td><span class="badge" style="background:#ede9fe;color:#6d28d9">Video</span></td>
+<td><span class="badge badge-blue">Scheduled</span></td>
+<td><button class="btn-secondary" onclick="showToast('Appointment cancelled')" style="padding:5px 12px;font-size:0.775rem">Cancel</button></td>
+</tr>
+<tr>
+<td><div style="font-weight:600">Dr. Rajan Mehta</div><div style="font-size:0.75rem;color:var(--ink3)">Room 405</div></td>
+<td>Orthopedics</td>
+<td><div style="font-weight:500">Mar 15, 2026</div><div style="font-size:0.75rem;color:var(--ink3)">9:00 AM</div></td>
+<td><span class="badge badge-blue">In-person</span></td>
+<td><span class="badge" style="background:#f3f4f6;color:#6b7280">Completed</span></td>
+<td><button class="btn-secondary" onclick="showToast('Review submitted!')" style="padding:5px 12px;font-size:0.775rem">Review</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- FIND DOCTORS -->
+<div class="panel" id="panel-doctors">
+<div class="page-header">
+<div class="page-title">Find Doctors</div>
+<div class="page-sub">Browse specialists available at Apollo Hospital.</div>
+</div>
+<div class="search-bar" style="margin-bottom:20px">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--ink3)" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35" stroke-linecap="round"></path></svg>
+<input placeholder="Search doctors, specializations..."/>
+</div>
+<div class="doctor-grid">
+<div class="doctor-card" onclick="showToast('Booking with Dr. Deepak Sharma...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar">DS</div>
+<div>
+<div class="doctor-name">Dr. Deepak Sharma</div>
+<div class="doctor-spec">Cardiology · 14 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-green"><span class="avail-dot"></span>Available today</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.9★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">1,240</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">3 slots</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+<div class="doctor-card" onclick="showToast('Booking with Dr. Priya Rao...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar" style="background:#1d5fa8">PR</div>
+<div>
+<div class="doctor-name">Dr. Priya Rao</div>
+<div class="doctor-spec">Dermatology · 9 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-amber">Next: Apr 2</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.7★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">890</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">0 slots</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+<div class="doctor-card" onclick="showToast('Booking with Dr. Meera Krishnan...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar" style="background:#6d28d9">MK</div>
+<div>
+<div class="doctor-name">Dr. Meera Krishnan</div>
+<div class="doctor-spec">Neurology · 18 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-green"><span class="avail-dot"></span>Available today</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.8★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">2,100</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">1 slot</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+<div class="doctor-card" onclick="showToast('Booking with Dr. Rajan Mehta...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar" style="background:#d97706">RM</div>
+<div>
+<div class="doctor-name">Dr. Rajan Mehta</div>
+<div class="doctor-spec">Orthopedics · 11 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-green"><span class="avail-dot"></span>Available today</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.8★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">730</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">5 slots</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+<div class="doctor-card" onclick="showToast('Booking with Dr. Sunil Verma...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar" style="background:#e03535">SV</div>
+<div>
+<div class="doctor-name">Dr. Sunil Verma</div>
+<div class="doctor-spec">Pediatrics · 7 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-amber">Next: Mar 30</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.6★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">610</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">0 slots</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+<div class="doctor-card" onclick="showToast('Booking with Dr. Naina Joshi...')">
+<div class="doctor-card-top">
+<div class="doctor-avatar" style="background:#0f6e56">NJ</div>
+<div>
+<div class="doctor-name">Dr. Naina Joshi</div>
+<div class="doctor-spec">Gynecology · 12 yrs exp.</div>
+<div style="margin-top:4px"><span class="badge badge-green"><span class="avail-dot"></span>Available today</span></div>
+</div>
+</div>
+<div class="doctor-stats">
+<div class="doctor-stat"><div class="doctor-stat-val">4.9★</div><div class="doctor-stat-lbl">Rating</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">1,560</div><div class="doctor-stat-lbl">Patients</div></div>
+<div class="doctor-stat"><div class="doctor-stat-val">2 slots</div><div class="doctor-stat-lbl">Today</div></div>
+</div>
+</div>
+</div>
+</div>
+<!-- HEALTH RECORDS -->
+<div class="panel" id="panel-records">
+<div class="page-header">
+<div class="page-title">Health Records</div>
+<div class="page-sub">Your complete medical history at Apollo Hospital.</div>
+</div>
+<div class="two-col" style="margin-bottom:20px">
+<div class="card">
+<div class="card-title">Vitals Summary</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:var(--bg2);border-radius:10px;padding:12px">
+<div style="font-size:0.72rem;color:var(--ink3);font-weight:600;text-transform:uppercase">Blood Pressure</div>
+<div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--accent);margin-top:4px">120/80</div>
+<div style="font-size:0.72rem;color:var(--ink3)">Normal · Mar 15</div>
+</div>
+<div style="background:var(--bg2);border-radius:10px;padding:12px">
+<div style="font-size:0.72rem;color:var(--ink3);font-weight:600;text-transform:uppercase">Heart Rate</div>
+<div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);margin-top:4px">74 bpm</div>
+<div style="font-size:0.72rem;color:var(--ink3)">Normal · Mar 15</div>
+</div>
+<div style="background:var(--bg2);border-radius:10px;padding:12px">
+<div style="font-size:0.72rem;color:var(--ink3);font-weight:600;text-transform:uppercase">Blood Sugar</div>
+<div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--amber);margin-top:4px">108 mg</div>
+<div style="font-size:0.72rem;color:var(--ink3)">Borderline · Mar 10</div>
+</div>
+<div style="background:var(--bg2);border-radius:10px;padding:12px">
+<div style="font-size:0.72rem;color:var(--ink3);font-weight:600;text-transform:uppercase">Weight</div>
+<div style="font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--ink);margin-top:4px">72 kg</div>
+<div style="font-size:0.72rem;color:var(--ink3)">Stable · Mar 15</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Active Medications</div>
+<div class="records-list">
+<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+<div style="width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0"></div>
+<div><div style="font-size:0.85rem;font-weight:600">Atorvastatin 10mg</div><div style="font-size:0.75rem;color:var(--ink3)">Once daily · Morning</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border2)">
+<div style="width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0"></div>
+<div><div style="font-size:0.85rem;font-weight:600">Metformin 500mg</div><div style="font-size:0.75rem;color:var(--ink3)">Twice daily · With meals</div></div>
+</div>
+<div style="display:flex;align-items:center;gap:10px;padding:8px 0">
+<div style="width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0"></div>
+<div><div style="font-size:0.85rem;font-weight:600">Pantoprazole 40mg</div><div style="font-size:0.75rem;color:var(--ink3)">Once daily · Before food</div></div>
+</div>
+</div>
+</div>
+</div>
+<div class="records-list">
+<div class="record-item">
+<div class="record-icon record-icon-green">🫀</div>
+<div>
+<div class="record-title">Cardiology Consultation</div>
+<div class="record-meta">Dr. Deepak Sharma · Mar 15, 2026</div>
+</div>
+<div class="record-right">
+<div style="font-size:0.775rem;color:var(--ink3)">ECG, BP monitoring</div>
+<span class="badge badge-green" style="margin-top:4px">Normal</span>
+</div>
+</div>
+<div class="record-item">
+<div class="record-icon record-icon-blue">🧬</div>
+<div>
+<div class="record-title">Complete Blood Count (CBC)</div>
+<div class="record-meta">Lab Department · Mar 10, 2026</div>
+</div>
+<div class="record-right">
+<div style="font-size:0.775rem;color:var(--ink3)">HbA1c: 6.1%</div>
+<span class="badge badge-amber" style="margin-top:4px">Monitor</span>
+</div>
+</div>
+<div class="record-item">
+<div class="record-icon record-icon-amber">🦴</div>
+<div>
+<div class="record-title">Orthopedics Follow-up</div>
+<div class="record-meta">Dr. Rajan Mehta · Feb 20, 2026</div>
+</div>
+<div class="record-right">
+<div style="font-size:0.775rem;color:var(--ink3)">X-Ray, Physiotherapy</div>
+<span class="badge badge-green" style="margin-top:4px">Recovered</span>
+</div>
+</div>
+</div>
+</div>
+<!-- AI ASSISTANT -->
+<div class="panel" id="panel-ai">
+<div class="page-header">
+<div class="page-title">AI Health Assistant</div>
+<div class="page-sub">Powered by QuickCARE AI — your 24/7 health companion.</div>
+</div>
+<div class="card" style="max-width:720px">
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px">
+<button class="btn-secondary" onclick="insertPrompt('ai-full','What are symptoms of high blood pressure?')" style="font-size:0.78rem;padding:6px 14px">Symptom check</button>
+<button class="btn-secondary" onclick="insertPrompt('ai-full','Can I take Ibuprofen with Metformin?')" style="font-size:0.78rem;padding:6px 14px">Drug interaction</button>
+<button class="btn-secondary" onclick="insertPrompt('ai-full','Help me prepare questions for my cardiologist')" style="font-size:0.78rem;padding:6px 14px">Prep for doctor</button>
+<button class="btn-secondary" onclick="insertPrompt('ai-full','What foods should I avoid with high blood sugar?')" style="font-size:0.78rem;padding:6px 14px">Diet advice</button>
+</div>
+<div class="ai-messages" id="ai-full" style="height:380px">
+<div class="ai-msg">
+<div class="ai-avatar-sm">Q</div>
+<div class="ai-bubble">Hi Aryan! I'm your QuickCARE AI assistant. I can help with symptom analysis, medication questions, preparing for your appointments, and general health guidance. What would you like to know?</div>
+</div>
+</div>
+<div class="ai-input-row" style="margin-top:14px">
+<input class="ai-input" id="ai-full-input" onkeydown="if(event.key==='Enter')sendChat('ai-full')" placeholder="Type your health question..."/>
+<button class="ai-send" onclick="sendChat('ai-full')">Send →</button>
+</div>
+<div style="font-size:0.72rem;color:var(--ink3);margin-top:8px">QuickCARE AI is not a substitute for professional medical advice. Always consult your doctor for medical decisions.</div>
+</div>
+</div>
+<!-- VIRTUAL WAITING ROOM -->
+<div class="panel" id="panel-waiting">
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div>
+<div class="page-title">Virtual Waiting Room</div>
+<div class="page-sub">Track your appointment in real-time. Seats show all patients booked with the same doctor.</div>
+</div>
+<div id="wr-countdown-badge" style="background:linear-gradient(135deg,#1a6b4a,#0f4d34);color:#fff;border-radius:14px;padding:14px 22px;text-align:center;min-width:180px;box-shadow:0 4px 18px rgba(26,107,74,0.25)">
+<div style="font-size:0.7rem;text-transform:uppercase;letter-spacing:.08em;opacity:.75;margin-bottom:4px">⏱ Time Until Appointment</div>
+<div id="wr-countdown" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;line-height:1.1;letter-spacing:-1px">--:--:--</div>
+<div id="wr-countdown-sub" style="font-size:0.72rem;opacity:.7;margin-top:4px">Calculating...</div>
+</div>
+</div>
+<!-- My appointment info strip -->
+<div id="wr-my-appt-card" style="background:linear-gradient(135deg,rgba(26,107,74,.07),rgba(26,107,74,.03));border:1.5px solid rgba(26,107,74,.25);border-radius:14px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+<div style="width:48px;height:48px;border-radius:13px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:#fff;flex-shrink:0">DS</div>
+<div style="flex:1;min-width:160px">
+<div style="font-weight:700;font-size:.95rem">Dr. Deepak Sharma <span style="font-weight:400;color:var(--ink3);font-size:.82rem">· Cardiology</span></div>
+<div style="font-size:.8rem;color:var(--ink3);margin-top:3px">📍 Room 204  ·  Apollo Hospital</div>
+</div>
+<div style="text-align:center;padding:0 16px;border-left:1px solid var(--border2)">
+<div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);font-weight:600">Date</div>
+<div id="wr-appt-date" style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--ink);margin-top:2px">Mar 28, 2026</div>
+</div>
+<div style="text-align:center;padding:0 16px;border-left:1px solid var(--border2)">
+<div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);font-weight:600">Time</div>
+<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--accent);margin-top:2px">10:30 AM</div>
+</div>
+<div style="text-align:center;padding:0 16px;border-left:1px solid var(--border2)">
+<div style="font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);font-weight:600">Your Seat</div>
+<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--ink);margin-top:2px">#A5</div>
+</div>
+<div id="wr-status-badge" style="margin-left:auto">
+<span class="badge badge-green" style="font-size:.82rem;padding:6px 14px">✓ Confirmed</span>
+</div>
+</div>
+<!-- Legend -->
+<div style="display:flex;gap:18px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
+<div style="font-size:.8rem;font-weight:600;color:var(--ink2)">Seat Legend:</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ink3)"><div class="wr-seat-legend" style="background:#e8f7ef;border:2px solid #1a6b4a;box-shadow:0 0 0 2px rgba(26,107,74,.2)"></div> Your seat</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ink3)"><div class="wr-seat-legend" style="background:#fde8e8;border:2px solid #e03535"></div> Occupied</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ink3)"><div class="wr-seat-legend" style="background:#e8f7ef;border:2px dashed #1a6b4a"></div> Available</div>
+<div style="display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--ink3)"><div class="wr-seat-legend" style="background:#f3f4f6;border:2px solid #d1d5db"></div> Not yet released</div>
+</div>
+<!-- Waiting Room Visual -->
+<div class="card" style="margin-bottom:20px">
+<div class="card-title" style="margin-bottom:18px">
+<span>🏥 Waiting Room — Dr. Deepak Sharma (Cardiology)</span>
+<span style="font-size:.78rem;font-weight:400;color:var(--ink3)">Today's schedule · <span id="wr-occupied-count">7</span>/12 occupied</span>
+</div>
+<!-- Room visual -->
+<div style="background:var(--bg2);border-radius:12px;padding:24px 20px;margin-bottom:16px;position:relative;overflow:hidden">
+<!-- Doctor's desk indicator -->
+<div style="text-align:center;margin-bottom:20px">
+<div style="display:inline-block;background:#1a6b4a;color:#fff;font-size:.75rem;font-weight:700;padding:6px 24px;border-radius:8px;letter-spacing:.04em">👨‍⚕️ Dr. Sharma's Consultation Room</div>
+</div>
+<!-- Seat rows -->
+<div id="wr-seat-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:560px;margin:0 auto"></div>
+<!-- Door -->
+<div style="text-align:center;margin-top:20px">
+<div style="display:inline-block;background:var(--border2);color:var(--ink3);font-size:.72rem;padding:4px 20px;border-radius:6px">🚪 Entrance</div>
+</div>
+</div>
+<!-- Time slots row -->
+<div style="margin-top:4px">
+<div style="font-size:.8rem;font-weight:600;color:var(--ink2);margin-bottom:10px">Today's Time Slots for Dr. Sharma</div>
+<div id="wr-time-slots" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+</div>
+</div>
+<!-- Notification / Confirmation card (shows 30min before) -->
+<div class="wr-notif-card" id="wr-notif-card" style="display:none">
+<div style="display:flex;align-items:center;gap:14px">
+<div style="font-size:2rem;flex-shrink:0">🔔</div>
+<div style="flex:1">
+<div style="font-weight:700;font-size:.95rem;color:#92400e;margin-bottom:4px">Your appointment is in 30 minutes!</div>
+<div style="font-size:.83rem;color:#92400e;opacity:.85">Please confirm your visit to keep your slot. If you don't respond, your appointment will be auto-cancelled and the seat released.</div>
+</div>
+</div>
+<div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end">
+<button class="btn-secondary" onclick="cancelFromWaitingRoom()" style="font-size:.82rem;padding:8px 18px;color:var(--red);border-color:var(--red)">✗ Cancel Appointment</button>
+<button class="btn-primary" onclick="confirmFromWaitingRoom()" style="font-size:.82rem;padding:8px 20px;background:#d97706">✓ Yes, I'm Coming!</button>
+</div>
+</div>
+<!-- Demo controls (simulate time passage) -->
+<div class="card" style="border:1.5px dashed var(--border);background:transparent">
+<div style="font-size:.78rem;font-weight:600;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">⚙ Demo Controls</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<button class="btn-secondary" onclick="simulateTimeChange(60*24*2)" style="font-size:.78rem;padding:6px 14px">Simulate: 2 days away</button>
+<button class="btn-secondary" onclick="simulateTimeChange(60*3)" style="font-size:.78rem;padding:6px 14px">Simulate: 3 hours away</button>
+<button class="btn-secondary" onclick="simulateTimeChange(29)" style="font-size:.78rem;padding:6px 14px">Simulate: 29 min (trigger alert)</button>
+<button class="btn-secondary" onclick="simulateTimeChange(0)" style="font-size:.78rem;padding:6px 14px">Simulate: Now (auto-cancel)</button>
+<button class="btn-secondary" onclick="resetWaitingRoom()" style="font-size:.78rem;padding:6px 14px">↺ Reset</button>
+</div>
+</div>
+</div>
+</div><!-- /patient-main -->
+</div>
+</div>
+<!-- ═══════════════ ADMIN VIEW ═══════════════ -->
+<div class="view" id="view-admin">
+<div class="admin-layout">
+<!-- Admin Sidebar -->
+<div class="admin-sidebar">
+<div class="admin-nav-section">Overview</div>
+<button class="admin-nav-item active" onclick="showAdminPanel('admin-dashboard', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect></svg>
+        Dashboard
+      </button>
+<div class="admin-nav-section">Hospital</div>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-patients', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Patients
+      </button>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-doctors-list', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Doctors
+      </button>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-rooms', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Rooms &amp; Beds
+      </button>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-staff', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Staff
+      </button>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-appts', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Appointments
+      </button>
+<div class="admin-nav-section">Analytics</div>
+<button class="admin-nav-item" onclick="showAdminPanel('admin-analytics', this)">
+<svg class="nav-icon" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        Analytics
+      </button>
+<div class="admin-hospital-tag">
+<div class="admin-hospital-name">Apollo Hospital</div>
+<div class="admin-hospital-id">hospital_id: APL-001</div>
+</div>
+</div>
+<!-- Admin Main -->
+<div class="admin-main">
+<!-- ADMIN DASHBOARD -->
+<div class="admin-panel active" id="panel-admin-dashboard">
+<div class="page-header">
+<div class="page-title">Hospital Dashboard</div>
+<div class="page-sub">Apollo Hospital · Real-time overview · Tuesday, March 24, 2026</div>
+</div>
+<div class="admin-stats-grid">
+<div class="admin-stat">
+<div class="admin-stat-accent" style="background:var(--accent)"></div>
+<div class="admin-stat-label">Total Patients</div>
+<div class="admin-stat-value">2,841</div>
+<div class="admin-stat-change" style="color:var(--accent)">+42 this week</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-accent" style="background:var(--blue)"></div>
+<div class="admin-stat-label">Appointments Today</div>
+<div class="admin-stat-value">148</div>
+<div class="admin-stat-change" style="color:var(--ink3)">38 remaining</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-accent" style="background:var(--red)"></div>
+<div class="admin-stat-label">Beds Occupied</div>
+<div class="admin-stat-value">87<span style="font-size:1rem;font-weight:400;color:var(--ink3)">/120</span></div>
+<div class="admin-stat-change" style="color:var(--red)">72% capacity</div>
+</div>
+<div class="admin-stat">
+<div class="admin-stat-accent" style="background:var(--amber)"></div>
+<div class="admin-stat-label">Doctors On Duty</div>
+<div class="admin-stat-value">24</div>
+<div class="admin-stat-change" style="color:var(--ink3)">6 on leave</div>
+</div>
+</div>
+<div class="cards-row">
+<div class="card">
+<div class="card-title">Alerts &amp; Notifications</div>
+<div class="alert-list">
+<div class="alert-item alert-item-red">
+<div class="alert-dot" style="background:var(--red)"></div>
+                ICU Bed 3 — Critical patient requires immediate review
+              </div>
+<div class="alert-item alert-item-amber">
+<div class="alert-dot" style="background:var(--amber)"></div>
+                OPD Queue — 28 patients waiting, avg wait: 42 min
+              </div>
+<div class="alert-item alert-item-amber">
+<div class="alert-dot" style="background:var(--amber)"></div>
+                Dr. Verma marked absent — 12 appointments need reassignment
+              </div>
+<div class="alert-item alert-item-green">
+<div class="alert-dot" style="background:var(--accent)"></div>
+                Lab results for 34 patients are ready for doctor review
+              </div>
+<div class="alert-item alert-item-green">
+<div class="alert-dot" style="background:var(--accent)"></div>
+                Monthly report generated — Revenue up 8.2% vs last month
+              </div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Today's Appointments</div>
+<div style="font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--ink)">148</div>
+<div style="margin:10px 0;display:flex;gap:8px;flex-wrap:wrap">
+<span class="badge badge-green">110 confirmed</span>
+<span class="badge badge-amber">28 pending</span>
+<span class="badge badge-red">10 cancelled</span>
+</div>
+<div class="chart-bar-row">
+<div class="chart-bar" style="height:35%"></div>
+<div class="chart-bar" style="height:55%"></div>
+<div class="chart-bar" style="height:80%"></div>
+<div class="chart-bar highlight" style="height:100%"></div>
+<div class="chart-bar" style="height:65%"></div>
+<div class="chart-bar" style="height:40%"></div>
+<div class="chart-bar" style="height:20%"></div>
+</div>
+<div class="chart-labels">
+<div class="chart-label">Mo</div><div class="chart-label">Tu</div><div class="chart-label">We</div>
+<div class="chart-label">Th</div><div class="chart-label">Fr</div><div class="chart-label">Sa</div>
+<div class="chart-label">Su</div>
+</div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Recent Patient Registrations</div>
+<div class="table-wrap" style="border:none;border-radius:0">
+<table class="data-table">
+<thead><tr><th>Patient</th><th>ID</th><th>Registered</th><th>Assigned Doctor</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><b>Riya Desai</b></td><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--ink3)">QC-9041</td><td>Today, 9:12 AM</td><td>Dr. Naina Joshi</td><td><span class="badge badge-green">Active</span></td></tr>
+<tr><td><b>Karan Mehta</b></td><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--ink3)">QC-9040</td><td>Today, 8:45 AM</td><td>Dr. Rajan Mehta</td><td><span class="badge badge-green">Active</span></td></tr>
+<tr><td><b>Sunita Pillai</b></td><td style="font-family:var(--font-mono);font-size:0.75rem;color:var(--ink3)">QC-9039</td><td>Yesterday</td><td>Dr. Deepak Sharma</td><td><span class="badge badge-amber">Pending</span></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- PATIENTS LIST -->
+<div class="admin-panel" id="panel-admin-patients">
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+<div>
+<div class="page-title">Patients</div>
+<div class="page-sub">All registered patients at Apollo Hospital.</div>
+</div>
+<button class="btn-primary" onclick="showToast('Add new patient form opened')">+ Add Patient</button>
+</div>
+<div class="search-bar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--ink3)" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35" stroke-linecap="round"></path></svg>
+<input placeholder="Search patients by name, ID, condition..."/>
+</div>
+<div class="patient-cards-grid">
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar">AK</div>
+<div>
+<div class="patient-card-id">QC-9001</div>
+<div class="patient-card-name">Aryan Kumar</div>
+<div style="margin-top:4px"><span class="badge badge-green">Active</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">28 · Male</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">O+</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. D. Sharma</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Hypertension</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Last visit</span><span class="patient-card-val">Mar 15</span></div>
+</div>
+</div>
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar" style="background:#e03535">SP</div>
+<div>
+<div class="patient-card-id">QC-9039</div>
+<div class="patient-card-name">Sunita Pillai</div>
+<div style="margin-top:4px"><span class="badge badge-amber">Pending</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">54 · Female</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">A+</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. D. Sharma</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Diabetes T2</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Last visit</span><span class="patient-card-val">Mar 23</span></div>
+</div>
+</div>
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar" style="background:#1d5fa8">KM</div>
+<div>
+<div class="patient-card-id">QC-9040</div>
+<div class="patient-card-name">Karan Mehta</div>
+<div style="margin-top:4px"><span class="badge badge-green">Active</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">35 · Male</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">B+</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. R. Mehta</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Knee injury</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Last visit</span><span class="patient-card-val">Today</span></div>
+</div>
+</div>
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar" style="background:#6d28d9">RD</div>
+<div>
+<div class="patient-card-id">QC-9041</div>
+<div class="patient-card-name">Riya Desai</div>
+<div style="margin-top:4px"><span class="badge badge-green">Active</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">24 · Female</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">AB-</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. N. Joshi</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Routine checkup</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Last visit</span><span class="patient-card-val">Today</span></div>
+</div>
+</div>
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar" style="background:#d97706">VN</div>
+<div>
+<div class="patient-card-id">QC-8998</div>
+<div class="patient-card-name">Vikram Nair</div>
+<div style="margin-top:4px"><span class="badge badge-red">Critical</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">67 · Male</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">O-</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. D. Sharma</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Post cardiac surgery</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Ward</span><span class="patient-card-val">ICU · Bed 3</span></div>
+</div>
+</div>
+<div class="patient-card">
+<div class="patient-card-header">
+<div class="patient-card-avatar" style="background:#0f6e56">AG</div>
+<div>
+<div class="patient-card-id">QC-9012</div>
+<div class="patient-card-name">Ananya Gupta</div>
+<div style="margin-top:4px"><span class="badge" style="background:#f3f4f6;color:#6b7280">Discharged</span></div>
+</div>
+</div>
+<div class="patient-card-body">
+<div class="patient-card-row"><span class="patient-card-key">Age</span><span class="patient-card-val">41 · Female</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Blood</span><span class="patient-card-val">A-</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Doctor</span><span class="patient-card-val">Dr. P. Rao</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Condition</span><span class="patient-card-val">Eczema treatment</span></div>
+<div class="patient-card-row"><span class="patient-card-key">Last visit</span><span class="patient-card-val">Mar 20</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- DOCTORS LIST -->
+<div class="admin-panel" id="panel-admin-doctors-list">
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+<div><div class="page-title">Doctors</div><div class="page-sub">Manage doctors, schedules and availability.</div></div>
+<button class="btn-primary" onclick="showToast('Add doctor form opened')">+ Add Doctor</button>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr><th>Doctor</th><th>Specialization</th><th>Status</th><th>Today's Appointments</th><th>Rating</th><th>Shift</th><th>Actions</th></tr></thead>
+<tbody>
+<tr>
+<td><div style="display:flex;align-items:center;gap:10px"><div class="appt-avatar" style="width:36px;height:36px;font-size:0.8rem">DS</div><div><b>Dr. Deepak Sharma</b><div style="font-size:0.75rem;color:var(--ink3)">14 yrs exp.</div></div></div></td>
+<td>Cardiology</td>
+<td><span class="badge badge-green">On duty</span></td>
+<td>22 / 25</td>
+<td>4.9 ★</td>
+<td><span class="shift-tag shift-morning">Morning</span></td>
+<td><button class="btn-secondary" onclick="showToast('Doctor profile opened')" style="padding:5px 12px;font-size:0.775rem">View</button></td>
+</tr>
+<tr>
+<td><div style="display:flex;align-items:center;gap:10px"><div class="appt-avatar" style="width:36px;height:36px;font-size:0.8rem;background:#1d5fa8">PR</div><div><b>Dr. Priya Rao</b><div style="font-size:0.75rem;color:var(--ink3)">9 yrs exp.</div></div></div></td>
+<td>Dermatology</td>
+<td><span class="badge badge-amber">Break</span></td>
+<td>18 / 20</td>
+<td>4.7 ★</td>
+<td><span class="shift-tag shift-morning">Morning</span></td>
+<td><button class="btn-secondary" onclick="showToast('Doctor profile opened')" style="padding:5px 12px;font-size:0.775rem">View</button></td>
+</tr>
+<tr>
+<td><div style="display:flex;align-items:center;gap:10px"><div class="appt-avatar" style="width:36px;height:36px;font-size:0.8rem;background:#6d28d9">MK</div><div><b>Dr. Meera Krishnan</b><div style="font-size:0.75rem;color:var(--ink3)">18 yrs exp.</div></div></div></td>
+<td>Neurology</td>
+<td><span class="badge badge-green">On duty</span></td>
+<td>15 / 20</td>
+<td>4.8 ★</td>
+<td><span class="shift-tag shift-evening">Evening</span></td>
+<td><button class="btn-secondary" onclick="showToast('Doctor profile opened')" style="padding:5px 12px;font-size:0.775rem">View</button></td>
+</tr>
+<tr>
+<td><div style="display:flex;align-items:center;gap:10px"><div class="appt-avatar" style="width:36px;height:36px;font-size:0.8rem;background:#e03535">SV</div><div><b>Dr. Sunil Verma</b><div style="font-size:0.75rem;color:var(--ink3)">7 yrs exp.</div></div></div></td>
+<td>Pediatrics</td>
+<td><span class="badge badge-red">Absent</span></td>
+<td>0 / 12</td>
+<td>4.6 ★</td>
+<td><span class="shift-tag shift-morning">Morning</span></td>
+<td><button class="btn-secondary" onclick="showToast('Reassigning appointments...')" style="padding:5px 12px;font-size:0.775rem">Reassign</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- ROOMS -->
+<div class="admin-panel" id="panel-admin-rooms">
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+<div><div class="page-title">Rooms &amp; Beds</div><div class="page-sub">Real-time occupancy across all wards.</div></div>
+<div style="display:flex;gap:8px;align-items:center;font-size:0.8rem;color:var(--ink3)">
+<span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--accent2);display:inline-block"></span>Free</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block"></span>Occupied</span>
+<span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--amber);display:inline-block"></span>Maintenance</span>
+</div>
+</div>
+<div style="margin-bottom:8px;font-weight:600;font-size:0.875rem;color:var(--ink2)">General Ward</div>
+<div class="rooms-grid" style="margin-bottom:20px">
+<div class="room-card" onclick="showToast('Room 101 — General · Occupied by: Aryan Kumar')">
+<div class="room-num">101</div><div class="room-type">General</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name">A. Kumar</div>
+</div>
+<div class="room-card" onclick="showToast('Room 102 — General · Available')">
+<div class="room-num">102</div><div class="room-type">General</div>
+<div class="room-status room-status-free"></div><div class="room-occ-name">Available</div>
+</div>
+<div class="room-card" onclick="showToast('Room 103 — General · Occupied')">
+<div class="room-num">103</div><div class="room-type">General</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name">S. Pillai</div>
+</div>
+<div class="room-card" onclick="showToast('Room 104 — Maintenance')">
+<div class="room-num">104</div><div class="room-type">General</div>
+<div class="room-status room-status-maint"></div><div class="room-occ-name">Maintenance</div>
+</div>
+<div class="room-card" onclick="showToast('Room 105 — Available')">
+<div class="room-num">105</div><div class="room-type">General</div>
+<div class="room-status room-status-free"></div><div class="room-occ-name">Available</div>
+</div>
+<div class="room-card" onclick="showToast('Room 106 — Occupied')">
+<div class="room-num">106</div><div class="room-type">General</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name">R. Desai</div>
+</div>
+<div class="room-card" onclick="showToast('Room 107 — Available')">
+<div class="room-num">107</div><div class="room-type">General</div>
+<div class="room-status room-status-free"></div><div class="room-occ-name">Available</div>
+</div>
+<div class="room-card" onclick="showToast('Room 108 — Occupied')">
+<div class="room-num">108</div><div class="room-type">General</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name">K. Mehta</div>
+</div>
+</div>
+<div style="margin-bottom:8px;font-weight:600;font-size:0.875rem;color:var(--ink2)">ICU</div>
+<div class="rooms-grid">
+<div class="room-card" onclick="showToast('ICU Bed 1 — Critical: V. Nair')">
+<div class="room-num" style="color:var(--red)">ICU 1</div><div class="room-type">Intensive Care</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name" style="color:var(--red);font-weight:600">V. Nair · Critical</div>
+</div>
+<div class="room-card" onclick="showToast('ICU Bed 2 — Available')">
+<div class="room-num">ICU 2</div><div class="room-type">Intensive Care</div>
+<div class="room-status room-status-free"></div><div class="room-occ-name">Available</div>
+</div>
+<div class="room-card" onclick="showToast('ICU Bed 3 — Occupied')">
+<div class="room-num" style="color:var(--red)">ICU 3</div><div class="room-type">Intensive Care</div>
+<div class="room-status room-status-occ"></div><div class="room-occ-name">A. Iyer</div>
+</div>
+<div class="room-card" onclick="showToast('ICU Bed 4 — Available')">
+<div class="room-num">ICU 4</div><div class="room-type">Intensive Care</div>
+<div class="room-status room-status-free"></div><div class="room-occ-name">Available</div>
+</div>
+</div>
+</div>
+<!-- STAFF -->
+<div class="admin-panel" id="panel-admin-staff">
+<div class="page-header" style="display:flex;align-items:flex-start;justify-content:space-between">
+<div><div class="page-title">Staff Management</div><div class="page-sub">Nurses, technicians and support staff on roster.</div></div>
+<button class="btn-primary" onclick="showToast('Add staff form opened')">+ Add Staff</button>
+</div>
+<div class="staff-list">
+<div class="staff-item"><div class="staff-avatar">RN</div><div><div class="staff-name">Rekha Nair</div><div class="staff-role">Head Nurse · ICU Ward</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-morning">Morning</span></div></div>
+<div class="staff-item"><div class="staff-avatar" style="background:#1d5fa8">PK</div><div><div class="staff-name">Prakash Kumar</div><div class="staff-role">Lab Technician</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-morning">Morning</span></div></div>
+<div class="staff-item"><div class="staff-avatar" style="background:#6d28d9">SM</div><div><div class="staff-name">Swati Mishra</div><div class="staff-role">Nurse · General Ward</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-evening">Evening</span></div></div>
+<div class="staff-item"><div class="staff-avatar" style="background:#d97706">AT</div><div><div class="staff-name">Arun Thomas</div><div class="staff-role">Radiologist · X-Ray Dept.</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-morning">Morning</span></div></div>
+<div class="staff-item"><div class="staff-avatar" style="background:#e03535">DP</div><div><div class="staff-name">Deepa Pillai</div><div class="staff-role">Pharmacist</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-evening">Evening</span></div></div>
+<div class="staff-item"><div class="staff-avatar" style="background:#0f6e56">VG</div><div><div class="staff-name">Vijay George</div><div class="staff-role">Ambulance Driver</div></div><div class="staff-shift"><div class="staff-role" style="margin-bottom:4px">Shift</div><span class="shift-tag shift-night">Night</span></div></div>
+</div>
+</div>
+<!-- ADMIN APPOINTMENTS -->
+<div class="admin-panel" id="panel-admin-appts">
+<div class="page-header"><div class="page-title">All Appointments</div><div class="page-sub">Manage and oversee all hospital appointments.</div></div>
+<div class="search-bar">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" style="color:var(--ink3)" viewbox="0 0 24 24" width="16"><circle cx="11" cy="11" r="8"></circle><path d="M21 21l-4.35-4.35" stroke-linecap="round"></path></svg>
+<input placeholder="Search by patient, doctor, date..."/>
+</div>
+<div class="table-wrap">
+<table class="data-table">
+<thead><tr><th>Patient</th><th>Doctor</th><th>Dept.</th><th>Date &amp; Time</th><th>Type</th><th>Status</th><th>Actions</th></tr></thead>
+<tbody>
+<tr><td><b>Aryan Kumar</b> <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink3)">QC-9001</span></td><td>Dr. D. Sharma</td><td>Cardiology</td><td>Mar 28 · 10:30 AM</td><td><span class="badge badge-blue">In-person</span></td><td><span class="badge badge-green">Confirmed</span></td><td><button class="btn-secondary" onclick="showToast('Appointment details opened')" style="padding:5px 10px;font-size:0.75rem">Details</button></td></tr>
+<tr><td><b>Sunita Pillai</b> <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink3)">QC-9039</span></td><td>Dr. D. Sharma</td><td>Cardiology</td><td>Mar 25 · 11:00 AM</td><td><span class="badge badge-blue">In-person</span></td><td><span class="badge badge-amber">Pending</span></td><td><button class="btn-secondary" onclick="showToast('Approved!')" style="padding:5px 10px;font-size:0.75rem">Approve</button></td></tr>
+<tr><td><b>Karan Mehta</b> <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink3)">QC-9040</span></td><td>Dr. R. Mehta</td><td>Ortho</td><td>Today · 2:00 PM</td><td><span class="badge badge-blue">In-person</span></td><td><span class="badge badge-green">Confirmed</span></td><td><button class="btn-secondary" onclick="showToast('Details opened')" style="padding:5px 10px;font-size:0.75rem">Details</button></td></tr>
+<tr><td><b>Riya Desai</b> <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--ink3)">QC-9041</span></td><td>Dr. N. Joshi</td><td>Gynecology</td><td>Today · 3:30 PM</td><td><span class="badge" style="background:#ede9fe;color:#6d28d9">Video</span></td><td><span class="badge badge-green">Confirmed</span></td><td><button class="btn-secondary" onclick="showToast('Details opened')" style="padding:5px 10px;font-size:0.75rem">Details</button></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- ANALYTICS -->
+<div class="admin-panel" id="panel-admin-analytics">
+<div class="page-header"><div class="page-title">Analytics</div><div class="page-sub">Hospital performance metrics for March 2026.</div></div>
+<div class="admin-stats-grid">
+<div class="admin-stat"><div class="admin-stat-accent" style="background:var(--accent)"></div><div class="admin-stat-label">Monthly Revenue</div><div class="admin-stat-value">₹48.2L</div><div class="admin-stat-change" style="color:var(--accent)">+8.2% vs Feb</div></div>
+<div class="admin-stat"><div class="admin-stat-accent" style="background:var(--blue)"></div><div class="admin-stat-label">Appointments</div><div class="admin-stat-value">3,241</div><div class="admin-stat-change" style="color:var(--accent)">+12% vs Feb</div></div>
+<div class="admin-stat"><div class="admin-stat-accent" style="background:var(--amber)"></div><div class="admin-stat-label">Avg Wait Time</div><div class="admin-stat-value">24m</div><div class="admin-stat-change" style="color:var(--red)">+4m vs Feb</div></div>
+<div class="admin-stat"><div class="admin-stat-accent" style="background:var(--accent2)"></div><div class="admin-stat-label">Patient Satisfaction</div><div class="admin-stat-value">4.7★</div><div class="admin-stat-change" style="color:var(--accent)">+0.2 vs Feb</div></div>
+</div>
+<div class="cards-row">
+<div class="card">
+<div class="card-title">Appointments by Department</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+<div><div style="display:flex;justify-content:space-between;font-size:0.825rem;margin-bottom:4px"><span style="font-weight:500">Cardiology</span><span style="color:var(--ink3)">840 · 26%</span></div><div style="height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:26%;border-radius:99px;background:var(--accent)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:0.825rem;margin-bottom:4px"><span style="font-weight:500">Orthopedics</span><span style="color:var(--ink3)">620 · 19%</span></div><div style="height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:19%;border-radius:99px;background:var(--blue)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:0.825rem;margin-bottom:4px"><span style="font-weight:500">Neurology</span><span style="color:var(--ink3)">510 · 16%</span></div><div style="height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:16%;border-radius:99px;background:var(--amber)"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:0.825rem;margin-bottom:4px"><span style="font-weight:500">Dermatology</span><span style="color:var(--ink3)">480 · 15%</span></div><div style="height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:15%;border-radius:99px;background:#6d28d9"></div></div></div>
+<div><div style="display:flex;justify-content:space-between;font-size:0.825rem;margin-bottom:4px"><span style="font-weight:500">Others</span><span style="color:var(--ink3)">791 · 24%</span></div><div style="height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:24%;border-radius:99px;background:var(--ink3)"></div></div></div>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Bed Occupancy Trend</div>
+<div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.825rem"><span>General Ward</span><div style="display:flex;align-items:center;gap:8px"><div style="width:80px;height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:75%;border-radius:99px;background:var(--accent)"></div></div><span style="color:var(--ink3);min-width:32px">75%</span></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.825rem"><span>ICU</span><div style="display:flex;align-items:center;gap:8px"><div style="width:80px;height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:50%;border-radius:99px;background:var(--red)"></div></div><span style="color:var(--ink3);min-width:32px">50%</span></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.825rem"><span>Pediatrics</span><div style="display:flex;align-items:center;gap:8px"><div style="width:80px;height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:60%;border-radius:99px;background:var(--amber)"></div></div><span style="color:var(--ink3);min-width:32px">60%</span></div></div>
+<div style="display:flex;justify-content:space-between;align-items:center;font-size:0.825rem"><span>Maternity</span><div style="display:flex;align-items:center;gap:8px"><div style="width:80px;height:8px;border-radius:99px;background:var(--bg2)"><div style="height:100%;width:90%;border-radius:99px;background:var(--red)"></div></div><span style="color:var(--ink3);min-width:32px">90%</span></div></div>
+</div>
+</div>
+</div>
+</div>
+</div><!-- /admin-main -->
+</div>
+</div><!-- /view-admin -->
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="modal-confirm">
+<div class="modal">
+<div class="modal-title">Confirm Appointment</div>
+<div class="modal-sub">Please review your appointment details before confirming.</div>
+<div id="modal-confirm-body" style="background:var(--bg2);border-radius:var(--radius-sm);padding:16px;font-size:0.875rem">
+<!-- Filled dynamically by openBookingModal() -->
+</div>
+<div class="modal-actions">
+<button class="btn-secondary" onclick="closeModal('modal-confirm')">Cancel</button>
+<button class="btn-primary" onclick="confirmAppt()">✓ Confirm Booking</button>
+</div>
+</div>
+</div>
+<!-- TOAST -->
+<div class="toast" id="toast">
+<span id="toast-msg"></span>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+</div><script src="index.js"></script></body>
+</html>
