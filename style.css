@@ -875,4 +875,4 @@ body{font-family:var(--font);background:var(--bg);color:var(--ink);min-height:10
 }
 .cal-day.cal-day-disabled { opacity:.3 !important; cursor:not-allowed !important; }
 .cal-day.cal-day-disabled:hover { background:transparent !important; color:var(--ink2) !important; }
-.badge-purple { background:#ede9fe; color:#6d28d9; }
+.badge-purple { background:#ede9fe; color:#6d28d9; }/* end of css */

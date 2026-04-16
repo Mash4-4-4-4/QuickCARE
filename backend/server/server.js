@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Routess
 const appointmentRoutes = require("./routes/appointmentRoutes");
 app.use("/api", appointmentRoutes);
 
